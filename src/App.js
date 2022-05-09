@@ -1,15 +1,19 @@
 import './App.css';
 import Header from './components/Header';
-import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import News from './components/News';
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Header />
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
-        </h1>
+        <div>
+          <Routes>
+            <Route path="/" element={<News category={"general"}/>} />
+            <Route path="/business" element={<News category={"business"}/>} />
+          </Routes>
+        </div>
       </Router>
     </div>
   );
