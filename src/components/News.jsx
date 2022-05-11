@@ -3,7 +3,9 @@ import NewsItem from './NewsItem'
 
 const News = ({ category, country, pageSize }) => {
 
-    let [articles, setArticles] = useState([])
+    const [articles, setArticles] = useState([])
+    const [page, setPage] = useState(0)
+    const [totalResult, setTotalResult ] = useState(0)
 
     const handleCapitalize = (text) => {
         if (text.length > 0) {
@@ -12,23 +14,35 @@ const News = ({ category, country, pageSize }) => {
         else { return text; }
     }
 
-    const fetchNews = async () => {
-        let apiKey = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=${pageSize}&apiKey=25a53b999a3d46619975db658017f9ba`;
+    const fetchNews = async (page) => {
+        let apiKey = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=${pageSize}&page=${page}&apiKey=25a53b999a3d46619975db658017f9ba`;
         let data = await fetch(apiKey);
         let parsedData = await data.json();
         console.log(parsedData);
         setArticles(parsedData.articles);
+        setTotalResult(parsedData.totalResults);
     }
 
     useEffect(() => {
-        fetchNews();
+        fetchNews(page);
     });
+
+    const handlePrevClk = () => {
+        fetchNews(page - 1)
+        setPage(page - 1);
+
+    }
+
+    const handleNxtClk = () => {
+        fetchNews(page + 1);
+        setPage(page + 1);
+    }
     return (
-        <>
+        <div className=''>
             <h1 className='pb-4 text-center pt-10 text-4xl font-semibold'>NewsMate - Top {handleCapitalize(category === "general" ? "" : category)} Headlines</h1>
 
-            <section className="text-gray-600 body-font max-w-[90%] mx-auto">
-                <div className="container px-5 py-20 mx-auto">
+            <section className="container px-5 py-5 text-gray-600 body-font max-w-[90%] mx-auto">
+                <div className="container mx-auto">
                     <div className="flex flex-wrap -m-4">
                         {articles?.map((artical) => {
                             return (
@@ -40,8 +54,12 @@ const News = ({ category, country, pageSize }) => {
                     </div>
                 </div>
             </section>
+            <div className="container px-20 py-10 flex justify-between mb-5">
+                <button disabled={page <= 1} type="button" className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" onClick={handlePrevClk}>&larr; Previous</button>
+                <button disabled={page >= Math.ceil(totalResult / 30)} type="button" className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" onClick={handleNxtClk}>Next &rarr;</button>
+            </div>
 
-        </>
+        </div>
     )
 }
 
