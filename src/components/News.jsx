@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import NewsItem from './NewsItem'
+import NewsItem from './NewsItem';
 
-const News = ({ category, country, pageSize }) => {
+const News = ({ category, country, pageSize, setProgress }) => {
 
     const [articles, setArticles] = useState([])
     const [page, setPage] = useState(0)
-    const [totalResult, setTotalResult ] = useState(0)
+    const [totalResult, setTotalResult] = useState(0)
 
     const handleCapitalize = (text) => {
         if (text.length > 0) {
@@ -15,11 +15,14 @@ const News = ({ category, country, pageSize }) => {
     }
 
     const fetchNews = async (page) => {
+        setProgress(10);
         let apiKey = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=${pageSize}&page=${page}&apiKey=25a53b999a3d46619975db658017f9ba`;
         let data = await fetch(apiKey);
+        setProgress(35);
         let parsedData = await data.json();
-        console.log(parsedData);
+        setProgress(65);
         setArticles(parsedData.articles);
+        setProgress(100);
         setTotalResult(parsedData.totalResults);
     }
 
@@ -53,11 +56,11 @@ const News = ({ category, country, pageSize }) => {
                         })}
                     </div>
                 </div>
+                <div className="container px-20 flex justify-between mb-5">
+                    <button disabled={page <= 1} type="button" className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" onClick={handlePrevClk}>&larr; Prev</button>
+                    <button disabled={page >= Math.ceil(totalResult / 30)} type="button" className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" onClick={handleNxtClk}>Next &rarr;</button>
+                </div>
             </section>
-            <div className="container px-20 py-10 flex justify-between mb-5">
-                <button disabled={page <= 1} type="button" className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" onClick={handlePrevClk}>&larr; Previous</button>
-                <button disabled={page >= Math.ceil(totalResult / 30)} type="button" className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" onClick={handleNxtClk}>Next &rarr;</button>
-            </div>
 
         </div>
     )

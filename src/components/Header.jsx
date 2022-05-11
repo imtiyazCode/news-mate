@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Header = () => {
     return (
         <>
-            <header className='text-gray-400 bg-gray-900 body-font'>
+            <header className='text-gray-400 bg-gray-900 body-font fixed w-full z-50'>
                 <div className='container mx-auto flex flex-wrap items-center flex-col md:flex-row p-4'>
                     <a href="" className='hover:text-gray-200'>
                         <span className="ml-3 text-xl">News Mate</span>

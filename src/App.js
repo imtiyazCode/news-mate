@@ -1,22 +1,28 @@
-import './App.css';
 import Header from './components/Header';
 import News from './components/News';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import LoadingBar from 'react-top-loading-bar';
+import { useState } from 'react';
 
 function App() {
+  const [progress, setProgress] = useState(0)
   return (
     <div className="App">
       <Router>
         <Header />
-        <div>
+        <LoadingBar
+            color='#f11946'
+            progress={progress}
+          />
+        <div className='main pt-20'>
           <Routes>
-            <Route path="/" element={<News category={"general"} country={"in"} pageSize={30} />} />
-            <Route path="/business" element={<News category={"business"} country={"in"} pageSize={30} />} />
-            <Route path="/entertainment" element={<News category={"entertainment"} country={"in"} pageSize={30} />} />
-            <Route path="/health" element={<News category={"health"} country={"in"} pageSize={30} />} />
-            <Route path="/science" element={<News category={"science"} country={"in"} pageSize={30} />} />
-            <Route path="/sports" element={<News category={"sports"} country={"in"} pageSize={30} />} />
-            <Route path="/technology" element={<News category={"technology"} country={"in"} pageSize={30} />} />
+            <Route path="/" element={<News category={"general"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
+            <Route path="/business" element={<News category={"business"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
+            <Route path="/entertainment" element={<News category={"entertainment"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
+            <Route path="/health" element={<News category={"health"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
+            <Route path="/science" element={<News category={"science"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
+            <Route path="/sports" element={<News category={"sports"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
+            <Route path="/technology" element={<News category={"technology"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
           </Routes>
         </div>
       </Router>
