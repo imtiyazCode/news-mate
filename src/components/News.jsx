@@ -4,7 +4,7 @@ import NewsItem from './NewsItem';
 const News = ({ category, country, pageSize, setProgress, apiKey }) => {
 
     const [articles, setArticles] = useState([])
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(1)
     const [totalResult, setTotalResult] = useState(0)
 
     const handleCapitalize = (text) => {
