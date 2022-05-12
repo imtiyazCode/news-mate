@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import NewsItem from './NewsItem';
 
-const News = ({ category, country, pageSize, setProgress }) => {
+const News = ({ category, country, pageSize, setProgress, apiKey }) => {
 
     const [articles, setArticles] = useState([])
     const [page, setPage] = useState(0)
@@ -16,32 +16,32 @@ const News = ({ category, country, pageSize, setProgress }) => {
 
     const fetchNews = async (page) => {
         setProgress(10);
-        let apiKey = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=${pageSize}&page=${page}&apiKey=25a53b999a3d46619975db658017f9ba`;
-        let data = await fetch(apiKey);
+        let apiString = `https://newsapi.org/v2/top-headlines?country=${country}&category=${category}&pageSize=${pageSize}&page=${page}&apiKey=${apiKey}`;
+        let data = await fetch(apiString);
         setProgress(35);
         let parsedData = await data.json();
         setProgress(65);
         setArticles(parsedData.articles);
-        setProgress(100);
         setTotalResult(parsedData.totalResults);
+        setProgress(100);
     }
 
     useEffect(() => {
         fetchNews(page);
-    });
+    },[category]);
 
     const handlePrevClk = () => {
         fetchNews(page - 1)
         setPage(page - 1);
-
     }
 
     const handleNxtClk = () => {
         fetchNews(page + 1);
         setPage(page + 1);
     }
+
     return (
-        <div className=''>
+        <>
             <h1 className='pb-4 text-center pt-10 text-4xl font-semibold'>NewsMate - Top {handleCapitalize(category === "general" ? "" : category)} Headlines</h1>
 
             <section className="container px-5 py-5 text-gray-600 body-font max-w-[90%] mx-auto">
@@ -56,13 +56,13 @@ const News = ({ category, country, pageSize, setProgress }) => {
                         })}
                     </div>
                 </div>
-                <div className="container px-20 flex justify-between mb-5">
+                <div className="container pt-16 flex justify-between mb-5">
                     <button disabled={page <= 1} type="button" className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" onClick={handlePrevClk}>&larr; Prev</button>
                     <button disabled={page >= Math.ceil(totalResult / 30)} type="button" className="bg-gray-700 hover:bg-gray-900 text-white font-bold py-2 px-4 rounded" onClick={handleNxtClk}>Next &rarr;</button>
                 </div>
             </section>
 
-        </div>
+        </>
     )
 }
 

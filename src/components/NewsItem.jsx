@@ -7,10 +7,10 @@ const NewsItem = (props) => {
     let { imgUrl, title, desc, author, newsUrl, date } = props;
     return (
         <>
-            <div className="border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
-                <img className="lg:h-48 md:h-36 w-full object-cover object-center" src={imgUrl} alt="blog" />
+            <div className="border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden shadow-xl">
+                <img className="lg:h-48 md:h-36 w-full object-cover object-center" src={imgUrl? imgUrl : "https://mediaengagement.org/wp-content/uploads/2018/09/iStock-116248249-600x400.jpg"} alt={title} />
                 <div className="p-6">
-                    <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">{date}</h2>
+                    <h2 className="tracking-widest text-center text-xs title-font font-medium text-gray-400 mb-1">{date}</h2>
                     <h1 className="title-font text-lg font-medium text-gray-900 mb-3">{title}</h1>
                     <p className="leading-relaxed mb-3">{desc}</p>
                     <div className="flex items-center flex-wrap ">

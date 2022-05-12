@@ -6,6 +6,9 @@ import { useState } from 'react';
 
 function App() {
   const [progress, setProgress] = useState(0)
+  const apiKey = process.env.REACT_APP_NEWS_API
+  
+  
   return (
     <div className="App">
       <Router>
@@ -14,15 +17,15 @@ function App() {
             color='#f11946'
             progress={progress}
           />
-        <div className='main pt-20'>
+        <div className='main py-20'>
           <Routes>
-            <Route path="/" element={<News category={"general"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
-            <Route path="/business" element={<News category={"business"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
-            <Route path="/entertainment" element={<News category={"entertainment"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
-            <Route path="/health" element={<News category={"health"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
-            <Route path="/science" element={<News category={"science"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
-            <Route path="/sports" element={<News category={"sports"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
-            <Route path="/technology" element={<News category={"technology"} country={"in"} pageSize={30} />} setPrograss={setProgress} />
+            <Route path="/" element={<News category={"general"} country={"in"} pageSize={30} setProgress={setProgress} apiKey={apiKey} />}  />
+            <Route path="/business" element={<News category={"business"} country={"in"} pageSize={30} setProgress={setProgress} apiKey={apiKey} />}  />
+            <Route path="/entertainment" element={<News category={"entertainment"} country={"in"} pageSize={30} setProgress={setProgress} apiKey={apiKey} />}  />
+            <Route path="/health" element={<News category={"health"} country={"in"} pageSize={30} setProgress={setProgress} apiKey={apiKey} />}  />
+            <Route path="/science" element={<News category={"science"} country={"in"} pageSize={30} setProgress={setProgress} apiKey={apiKey} />}  />
+            <Route path="/sports" element={<News category={"sports"} country={"in"} pageSize={30} setProgress={setProgress} apiKey={apiKey} />}  />
+            <Route path="/technology" element={<News category={"technology"} country={"in"} pageSize={30} setProgress={setProgress} apiKey={apiKey} />}  />
           </Routes>
         </div>
       </Router>
