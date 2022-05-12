@@ -28,6 +28,7 @@ const News = ({ category, country, pageSize, setProgress, apiKey }) => {
 
     useEffect(() => {
         fetchNews(page);
+        // eslint-disable-next-line
     },[category]);
 
     const handlePrevClk = () => {
